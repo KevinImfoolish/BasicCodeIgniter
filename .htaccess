@@ -4,6 +4,8 @@ RewriteEngine On
 #RewriteCond %{HTTP_HOST} ^(ssectec.com|ssectec\.cn|www\.ssectec\.cn)$ [NC]
 #RewriteRule ^(.*)$ http://www.ssectec.com/$1 [R=301,L]
 
-RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond $1 !^(index\.php|images|robots\.txt)
+RewriteCond %{REQUEST_URI} !^.*(/.css|/.js|/.gif|/.png|/.jpg|/.jpeg)$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L]

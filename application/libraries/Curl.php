@@ -33,6 +33,10 @@
 				curl_setopt($curl, CURLOPT_POST, count($params));
 				curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 			endif;
+			if (strpos( 'pre' . $url, 'https')) {
+				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);	
+			}
 			
 		    // 运行cURL，请求API
 			$result = curl_exec($curl);

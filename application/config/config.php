@@ -21,7 +21,10 @@ define('SITE_KEYWORDS', 'Basic,PHP,开发框架,开源,CodeIgniter,CI,GitHub'); 
 define('SITE_DESCRIPTION', 'Basic是一个开源的PHP开发框架，源自CI最新稳定版'); // 站点描述
 define('ICP_NUMBER', NULL); // ICP备案号码，没有请留空
 
-define('BASE_URL', 'https://'. $_SERVER['SERVER_NAME']); // 可对外使用的站点URL；在本地测试时须替换为类似“localhost/BasicCodeigniter”形式
+// define('BASE_URL', 'https://'. (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : null)); 
+
+define('BASE_URL', 'http://localhost/BasicCodeigniter');
+// 可对外使用的站点URL；在本地测试时须替换为类似“localhost/BasicCodeigniter”形式
 //define('IMAGES_URL', 'https://images.xx.com/'); // （可选）非样式图片存储的根目录所在URL，可用于配合又拍云等第三方存储
 define('COOKIE_DOMAIN', '.domain.com'); // cookie存储路径；方便起见可让所有子域共享，若需分离可自行配置
 define('SESSION_COOKIE_NAME', 'ci_sessions_web'); // 用于cookie存储的session名（设置此值后，前后台session互不影响）
@@ -32,11 +35,11 @@ define('ENCRYPTION_KEY', ''); // 秘钥用于加密相关功能，可为空
 // RESTful API
 define('API_TOKEN', '7C4l7JLaM3Fq5biQurtmk9nFS');
 define('API_URL', 'https://api.domain.com/');
-function api_url($api_name)
-{
-	$api_url = API_URL. $api_name;
-	return $api_url;
-}
+// function api_url($api_name)
+// {
+// 	$api_url = API_URL. $api_name;
+// 	return $api_url;
+// }
 
 /* 以下是为下一个版本将要增加的功能预留的参数 */
 // 微信公众平台参数
@@ -103,7 +106,8 @@ $config['index_page'] = '';
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= 'REQUEST_URI';
+// $config['uri_protocol']	= 'REQUEST_URI';
+$config['uri_protocol']	= 'PATH_INFO';
 
 /*
 |--------------------------------------------------------------------------
@@ -187,8 +191,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
-
+$config['composer_autoload'] = TRUE;
 /*
 |--------------------------------------------------------------------------
 | Allowed URL Characters

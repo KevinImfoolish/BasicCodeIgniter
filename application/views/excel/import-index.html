@@ -1,0 +1,104 @@
+
+		<!-- END LEFT SIDEBAR -->
+		<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="panel">
+								<div class="panel-heading">
+									<h3 class="panel-title">请填写类名，并选择上传的文件</h3>
+								</div>
+							
+								<div class="panel-body">
+									<input type="text" placeholder="类名" class="form-control" placeholder="text field" name="classname" id="classname">
+									<br>
+									<input type="text" placeholder="表名" class="form-control" placeholder="text field" name="tablename" id="tablename">
+									<br>
+									<input type="file"class="form-control"  name="excelfile" id="excelfile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" size="20" />
+									<br>
+								 	<p class="demo-button">
+								 		<input type="submit" value="上传" class="btn btn-success" id="send"/>
+								 	</p>
+							
+							</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+		
+			</div>
+			<!-- END MAIN CONTENT -->
+		</div>
+		<!-- END MAIN -->
+		<div class="clearfix"></div>
+		<footer>
+			<div class="container-fluid">
+				
+			</div>
+		</footer>
+	</div>
+	<!-- END WRAPPER -->
+	<!-- Javascript -->
+	<script src="/Basiccodeigniter/css/assets/vendor/jquery/jquery.min.js"></script>
+	<script src="/Basiccodeigniter/css/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/Basiccodeigniter/css/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<!-- <script src="/Basiccodeigniter/css/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script> -->
+	<!-- <script src="/Basiccodeigniter/css/assets/vendor/chartist/js/chartist.min.js"></script> -->
+	<!-- <script src="/Basiccodeigniter/css/assets/scripts/klorofil-common.js"></script> -->
+	<script>
+	$(function() {
+		var isLoading = false
+		$("#send").click(function(){
+			if (isLoading) {
+				return true
+			}
+			isLoading = true
+			console.log(1)
+			var _button = $(this)
+			let classname = $("#classname").val();
+			let tablename = $("#tablename").val();
+		
+			if($('#excelfile')[0].files.length == 0){
+				alert('请选择上传的文件,必须是xlsx文件')
+				return true
+			}
+			_button.text('正在上传')
+			var data = new FormData();
+			data.append('classname', classname)
+			data.append('tablename', tablename)
+			data.append('excelfile', $('#excelfile')[0].files[0])
+			$.ajax({
+				url: "<?php echo base_url('import/upload') ?>",
+				type: "post",
+				dataType: "json",
+				data: data,
+				processData: false,
+				contentType: false,
+				timeout: 40000
+			}).done(function(res){
+				isLoading = false
+				console.log(res)
+				if(res.status == 0){
+					alert(res.msg + ',id为' + res.res)
+				} else {
+					if(res.res){
+						alert('已经处理数据' + res.res)
+					}
+					alert(res.msg)
+				}
+			}).fail(function(err,what){
+				isLoading = false
+				alert('发生异常,稍后再试');
+			}).always(function(r){
+				isLoading = false
+			})
+		})
+	} )
+	</script>
+</body>
+
+</html>

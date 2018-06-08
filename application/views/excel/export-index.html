@@ -1,0 +1,81 @@
+
+		<!-- END LEFT SIDEBAR -->
+		<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="panel">
+								<div class="panel-heading">
+									<h3 class="panel-title">请输入导出接口的类名</h3>
+								</div>
+								<div class="panel-body">
+									<input type="text" placeholder="类名" class="form-control" placeholder="text field" id="classname">
+									<br>
+									<input type="text" placeholder="方法名" value="index" readonly="readonly" class="form-control" placeholder="text field">
+									<br>
+								 	<p class="demo-button">
+								 		<button type="button" class="btn btn-success" id="getfile">导出</button>
+								 	</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+		
+			</div>
+			<!-- END MAIN CONTENT -->
+		</div>
+		<!-- END MAIN -->
+		<div class="clearfix"></div>
+		<footer>
+			<div class="container-fluid">
+				
+			</div>
+		</footer>
+	</div>
+	<!-- END WRAPPER -->
+	<!-- Javascript -->
+	<script src="/Basiccodeigniter/css/assets/vendor/jquery/jquery.min.js"></script>
+	<script src="/Basiccodeigniter/css/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/Basiccodeigniter/css/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<!-- <script src="/Basiccodeigniter/css/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script> -->
+	<!-- <script src="/Basiccodeigniter/css/assets/vendor/chartist/js/chartist.min.js"></script> -->
+	<!-- <script src="/Basiccodeigniter/css/assets/scripts/klorofil-common.js"></script> -->
+	<script>
+	$(function() {
+		var isLoading = false
+		$("#getfile").click(function(){
+			if (isLoading) {
+				return true
+			}
+			isLoading = true
+			var _button = $(this)
+			let classname = $("#classname").val();
+			if($.trim(classname) == ''){
+				alert('请不要为空')
+				return true
+			}
+			_button.text('正在导出')
+			$.getJSON("<?php echo base_url('export/getresource') ?>?classname=" + $.trim(classname), function(res){
+				isLoading = false
+				_button.text('导出')
+				if(res.status == 0){
+					window.location = res.path
+				} else {
+					if(res.msg){
+						alert(res.msg)
+					} else {
+						alert("网络异常，稍后再试~")
+					}
+				}
+			})
+		})
+	} )
+	</script>
+</body>
+
+</html>

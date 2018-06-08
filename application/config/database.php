@@ -70,16 +70,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'default';
+$active_group = 'local';
 $query_builder = TRUE;
 
 /* 适用于生产环境的数据库参数，仅有读权限 */
 $db['default'] = array(
-	'dsn' => 'mysqli://basic:Basic2016@sensestrong.mysql.rds.aliyuncs.com/basic',
+	// 'dsn' => 'mysqli://basic:Basic2016@sensestrong.mysql.rds.aliyuncs.com/basic',
+	'dsn'      => 'mysqli://huangxin:Huangxin2261@sensestrong.mysql.rds.aliyuncs.com/jinlai',
 	'hostname' => 'sensestrong.mysql.rds.aliyuncs.com', // 数据库URL，以阿里云为例
-	'username' => 'basic', // 数据库用户名
-	'password' => 'Basic2016', // 数据库密码
-	'database' => 'basic', //数据库名
+	'username' => 'huangxin', // 数据库用户名
+	'password' => 'Huangxin2261', // 数据库密码
+	'database' => 'jinlai', //数据库名
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -102,7 +103,7 @@ $db['local'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'basic',
+	'database' => 'jinlailocal',
 	'dbdriver' => 'mysqli', // 根据本地环境的不同，可能需要修改为mysql
 	'dbprefix' => '',
 	'pconnect' => FALSE,

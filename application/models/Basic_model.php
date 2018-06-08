@@ -347,6 +347,14 @@
 			endif;
 		} // end edit
 
+
+		public function tablefields(){
+			if ($this->db->table_exists($this->table_name)){
+				return $this->db->list_fields($this->table_name);
+			}
+			return false;
+		}
+
 	} // end Class Basic_model
 
 /* End of file Basic_model.php */
